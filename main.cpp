@@ -25,7 +25,7 @@ GLFWwindow* initialiseWindow()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	
 	// Opens window and creates its OpenGL context
-	GLFWwindow* window = glfwCreateWindow(640, 480, "Hello (again)", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(640, 480, "Trophy Gallery", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to open GLFW window" << std::endl;
@@ -69,7 +69,7 @@ int main()
 	while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0)
 	{		
 		cv::Mat frame;
-		bool homography_found = true;//vision->calculateHomography(frame);
+		bool homography_found = vision->calculateHomography(frame);
 		if (homography_found)
 			renderer->draw(window);
 	}

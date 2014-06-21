@@ -1,7 +1,4 @@
 /**
-* Author		Jaween Ediriweera
-* Student ID	a1647468
-* Filename		model_helper.cpp
 * Description	Loads 3D models
 **/
 

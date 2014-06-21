@@ -1,28 +1,25 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
+#include <vector>
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+
+#include "model.h"
+#include "shader_program.h"
 
 class Renderer
 {
 	public:
 		~Renderer();
 		bool initialise();
+		glm::mat4 position_object_in_scene(glm::vec3 position);
 		void draw(GLFWwindow* window);
 		
 	private:
-		int num_vertices;
+		std::vector<Model*> models;
+		ShaderProgram* shader_program;
 		
-		GLuint program_id;
-		GLuint texture_id;
-		
-		GLuint mvp_matrix_location;
-		GLuint texture_location;
-		
-		GLuint vertex_array_id;
-		GLuint vertex_buffer;
-		GLuint uv_buffer;
-		GLuint normal_buffer;
 };
 #endif 

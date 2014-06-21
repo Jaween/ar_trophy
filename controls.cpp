@@ -36,8 +36,8 @@ void computeMatricesFromInputs(GLFWwindow* window)
 	glfwSetCursorPos(window, width/2, height/2);
 	
 	// Computes new orientation
-	horizontal_angle += mouse_speed * delta_time * float(width/2 - xpos);
-	vertical_angle += mouse_speed * delta_time * float(height/2 - ypos);
+	horizontal_angle += 0;//mouse_speed * delta_time * float(width/2 - xpos);
+	vertical_angle += 0;//mouse_speed * delta_time * float(height/2 - ypos);
 	
 	if (vertical_angle >= MAX_VERTICAL_ANGLE)
 		vertical_angle = MAX_VERTICAL_ANGLE;

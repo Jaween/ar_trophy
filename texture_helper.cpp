@@ -1,7 +1,4 @@
 /**
-* Author		Jaween Ediriweera
-* Student ID	a1647468
-* Filename		texture_helper.cpp
 * Description	Loads textures
 **/
 
