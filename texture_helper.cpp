@@ -14,7 +14,7 @@
 #define FOURCC_DXT3 0x33545844 // Equivalent to "DXT3" in ASCII
 #define FOURCC_DXT5 0x35545844 // Equivalent to "DXT5" in ASCII
 
-GLuint TextureHelper::loadBMP(const char* path)
+GLuint loadBMP(const char* path)
 {
 	unsigned char header[54];
 	unsigned int data_pos;
@@ -57,7 +57,7 @@ GLuint TextureHelper::loadBMP(const char* path)
 	// Creates our data buffer	
 	data = new unsigned char[image_size];
 	
-	// Reads data from the file and closes it
+	// Reads data from the file
 	fread(data, 1, image_size, file);
 	fclose(file);
 	
@@ -65,13 +65,11 @@ GLuint TextureHelper::loadBMP(const char* path)
 	GLuint texture_id;
 	glGenTextures(1, &texture_id);
 	
-	// Binds the texture
+	// Loads it into OpenGL
 	glBindTexture(GL_TEXTURE_2D, texture_id);
-	
-	// Loads the data into OpenGL
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
 	
-	// OpenGL now has a copy of the data
+	// OpenGL now has it's own copy of the data
 	delete [] data;
 	
 	// Trilinear filtering
@@ -85,7 +83,7 @@ GLuint TextureHelper::loadBMP(const char* path)
 }
 
 // TGA loading has been removed from GLFW
-/*GLuint TextureHelper::loadTGA(const char* path)
+/*GLuint loadTGA(const char* path)
 {
 	// Generates OpenGL texture
 	GLuint texture_id;
@@ -110,7 +108,7 @@ GLuint TextureHelper::loadBMP(const char* path)
 	return texture_id;
 }*/
 
-GLuint TextureHelper::loadDDS(const char* path)
+GLuint loadDDS(const char* path)
 {
 	unsigned char header[124];
 	
@@ -210,4 +208,12 @@ GLuint TextureHelper::loadDDS(const char* path)
 	//glBindTexture(GL_TEXTURE_2D, 0);
 	
 	return texture_id;
+}
+
+void updateTexture(GLuint texture_id, int width, int height, const unsigned char* data)
+{
+	glBindTexture(GL_TEXTURE_2D, texture_id);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
 }

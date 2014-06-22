@@ -13,10 +13,15 @@ class Vision
 	public:
 	~Vision();
 		bool initialise(const char* path, const int device);
-		bool calculateHomography(cv::Mat &camera_frame);
+		bool calculateOrientation();
+		void getOrientation();
+		void getDimensions(int &width, int &height);
+		unsigned char* getFrameData();
 		
 	private:
+	
 		cv::VideoCapture stream;
+		cv::Mat camera_frame;
 		
 		cv::Mat base_image;
 		std::vector<cv::KeyPoint> keypoints_base;
@@ -24,5 +29,7 @@ class Vision
 		
 		cv::SiftDescriptorExtractor extractor;
 		cv::FeatureDetector* detector;
+		
+		cv::Mat homography_matrix;
 };
 #endif 

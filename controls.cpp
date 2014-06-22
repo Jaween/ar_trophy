@@ -33,7 +33,7 @@ void computeMatricesFromInputs(GLFWwindow* window)
 	// Resets mouse position
 	int width, height;
 	glfwGetWindowSize(window, &width, &height);
-	glfwSetCursorPos(window, width/2, height/2);
+	//glfwSetCursorPos(window, width/2, height/2);
 	
 	// Computes new orientation
 	horizontal_angle += 0;//mouse_speed * delta_time * float(width/2 - xpos);

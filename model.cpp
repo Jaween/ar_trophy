@@ -11,8 +11,10 @@ const int ATTRIB_POSITION_INDEX = 0;
 const int ATTRIB_UV_INDEX = 1;
 const int ATTRIB_NORMAL_INDEX = 2;
 
-Model::Model(const char* path)
+Model::Model(const char* path, const char* texture_path)
 {
+	position = glm::vec3(0.0f, 0.0f, 0.0f);
+	
 	glGenVertexArrays(1, &vertex_array_id);
 	glBindVertexArray(vertex_array_id);
 	
@@ -22,7 +24,7 @@ Model::Model(const char* path)
 		return false;
 	*/
 		
-	texture_id = TextureHelper::loadBMP("marble.bmp");
+	texture_id = loadBMP(texture_path);
 	
 	glGenBuffers(1, &vertex_buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
@@ -37,8 +39,6 @@ Model::Model(const char* path)
 	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
 	
 	glBindVertexArray(0);
-	
-	position = glm::vec3(0.0f, 0.0f, 0.0f);
 }
 
 Model::~Model()
@@ -49,6 +49,11 @@ Model::~Model()
 	glDeleteBuffers(1, &normal_buffer);
 	glDeleteTextures(1, &texture_id);
 	glDeleteVertexArrays(1, &vertex_array_id);	
+}
+
+void Model::setPosition(glm::vec3 position)
+{
+	this->position = position;
 }
 
 glm::vec3 Model::getPosition()

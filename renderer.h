@@ -15,10 +15,12 @@ class Renderer
 		~Renderer();
 		bool initialise();
 		glm::mat4 position_object_in_scene(glm::vec3 position);
-		void draw(GLFWwindow* window);
+		void draw(GLFWwindow* window, unsigned char* frame_data, int width, int height);
 		
 	private:
-		std::vector<Model*> models;
+		Model* trophy;
+		Model* environment;
+		
 		ShaderProgram* shader_program;
 		
 };

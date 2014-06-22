@@ -6,11 +6,11 @@
 
 #include <GL/glew.h>
 
-class TextureHelper
-{
-	public:
-		static GLuint loadBMP(const char* path);
-		//static GLuint loadTGA(const char* path);
-		static GLuint loadDDS(const char* path);
-};
+GLuint loadBMP(const char* path);
+//GLuint loadTGA(const char* path);
+GLuint loadDDS(const char* path);
+
+void updateTexture(GLuint texture_id, int width, int height, const unsigned char* data);
+
+
 #endif 

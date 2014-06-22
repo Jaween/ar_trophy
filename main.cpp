@@ -49,9 +49,11 @@ int main()
 {	
 	// Initialises camera
 	Vision* vision = new Vision();
-	bool camera_initialisation_success = vision->initialise("feature_grid.jpg", 0);
+	bool camera_initialisation_success = vision->initialise("resources/feature_grid.jpg", 0);
 	if (camera_initialisation_success == false)
 		return 1;
+	int feed_width, feed_height;
+	vision->getDimensions(feed_width, feed_height);
 		
 	// Initialises window
 	GLFWwindow* window = initialiseWindow();
@@ -67,11 +69,14 @@ int main()
 	// Update and draw loop
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 	while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0)
-	{		
-		cv::Mat frame;
-		bool homography_found = vision->calculateHomography(frame);
-		if (homography_found)
-			renderer->draw(window);
+	{	
+		bool orientation_found = true;//vision->calculateOrientation();
+		unsigned char* frame_data = vision->getFrameData();
+		if (orientation_found)
+		{
+			//renderer->update(vision->getOrientation());
+			renderer->draw(window, frame_data, feed_width, feed_height);
+		}
 	}
 	
 	delete renderer;
